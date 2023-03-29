@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Data.Entity;
+using kno98.DAL;
+
 
 namespace kno98
 {
@@ -16,6 +19,18 @@ namespace kno98
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            var bookContext = new BookContext();
+            Database.SetInitializer(new BookInitializer());
+            try
+            {
+                bookContext.Database.Initialize(true);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+            
+
         }
     }
 }
